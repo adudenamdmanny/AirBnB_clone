@@ -2,61 +2,50 @@
 ![AirBnB Logo](https://www.pngitem.com/pimgs/m/132-1322125_transparent-background-airbnb-logo-hd-png-download.png)
 
 ## Project Description
-This is the first part of the AirBnB clone project where we worked on the backend of the project whiles interfacing it with a console application with the help of the cmd module in python.
+This project is broken into fragments or steps, and this is the first part of the AirBnB clone project. We interacted with the backend of the project, using a console developed by importing the cmd module in python. The console gave us the priviledge to manipulate different class instances, store them using file storage (.json file) and extracted date from the file.
 
-Data (python objects) generated are stored in a json file and can be accessed with the help of the json module in python
 
-## Description of the command interpreter:
-The interface of the application is just like the Bash shell except that this has a limited number of accepted commands that were solely defined for the purposes of the usage of the AirBnB website.
+## The console
+The console has similar features with the bash shell except that the console is designed or developed towards achieving limited specific functions such as for manipulating project data without a visual interface, in this case, the AirBnB project (its classes, storage e.t.c). The console is good for debugging and development.
 
-This command line interpreter  serves as the frontend of the web app where users can interact with the backend which was developed with python OOP programming.
+Some of the commands in the console:
 
-Some of the commands available are:
-- show
-- create
-- update
-- destroy
-- count
+* show - Retrieves an object/instance from a file or a database storage etc.
+* create - Creates new objects/instances. Example, create a new User or a new Place class.
+* update - Updating the attributes of an object/instance either by modifying existing or adding new attributes.
+* count - Count number objects/instances of a particular class that's be created.
+* destroy - Destroying an object.
 
-And as part of the implementation of the command line interpreter coupled with the backend and file storage system, the folowing actions can be performed:
--   Creating new objects (ex: a new User or a new Place)
--   Retrieving an object from a file, a database etc…
--   Doing operations on objects (count, compute stats, etc…)
--   Updating attributes of an object
--   Destroying an object
+## Installing the console for the AirBnB
+The steps below shows step-by-step procedure on how to install the console:
 
-## How to start it
-These instructions will get you a copy of the project up and running on your local machine (Linux distro) for development and testing purposes.
-
-## Installing
-
-You will need to clone the repository of the project from Github. This will contain the simple shell program and all of its dependencies.
+* Step 1: Clone the repository of this project from Github. Cloning this project contains the console program and all of its dependencies.
 
 ```
-git clone https://github.com/jzamora5/AirBnB_clone.git
+git clone https://github.com/adudenamdmanny/AirBnB_clone.git
+
 ```
-After cloning the repository you will have a folder called AirBnB_clone. In here there will be several files that allow the program to work.
+Below are the description of the program and all its dependencies:
 
 > /console.py : The main executable of the project, the command interpreter.
 >
-> models/engine/file_storage.py: Class that serializes instances to a JSON file and deserializes JSON file to instances
+> models/engine/file_storage.py: This module contains a class that serializes and deserializes instances to and from a JSON file.
 > 
-> models/__ init __.py:  A unique `FileStorage` instance for the application
+> models/__ init __.py:  A unique `FileStorage` instance for the application that ensures the storage is up-to-date once imported.
 > 
-> models/base_model.py: Class that defines all common attributes/methods for other classes.
+> models/base_model.py: This module contains class that defines all common attributes (methods and fields) for other classes.
 > 
-> models/user.py: User class that inherits from BaseModel
+> models/user.py: This module contains User class that inherits from BaseModel.
 > 
->models/state.py: State class that inherits from BaseModel
+>models/state.py: This module contains State class that inherits from BaseModel.
 >
->models/city.py: City class that inherits from BaseModel
+>models/city.py: This module contains City class that inherits from BaseModel.
 >
->models/amenity.py: Amenity class that inherits from BaseModel
+>models/amenity.py: This module contains Amenity class that inherits from BaseModel.
 >
->models/place.py: Place class that inherits from BaseModel
+>models/place.py: This module contains Place class that inherits from BaseModel.
 >
->models/review.py: Review class that inherits from BaseModel
-
+>models/review.py: This module contains Review class that inherits from BaseModel.
 
 
 ## How to use it
@@ -106,7 +95,7 @@ EOF  help  quit
 $
 ```
 
-## Format of Command Input
+## Console commands format
 
 In order to give commands to the console, these will need to be piped through an echo in case of  **Non-interactive mode**.
 
@@ -114,32 +103,31 @@ In  **Interactive Mode**  the commands will need to be written with a keyboard w
 
 ## Arguments
 
-Most commands have several options or arguments that can be used when executing the program. In order for the Shell to recognize those parameters, the user must separate everything with spaces.
+Most commands have several options or arguments that can be used when executing the program. In order for the console to recognize those parameters, the user must separate everything with spaces.
 
 Example:
 
 ```
 
-user@ubuntu:~/AirBnB$ ./console.py
+vagrant@ubuntu-focal:~/AirBnB$ ./console.py
 (hbnb) create BaseModel
-49faff9a-6318-451f-87b6-910505c55907
-user@ubuntu:~/AirBnB$ ./console.py
+49du8f9a-6018-451f-836d-910505c55907
+vagrant@ubuntu-focal:~/AirBnB$ ./console.py
 
 ```
-
 or
 
 ```
-user@ubuntu:~/AirBnB$ ./console.py $ echo "create BaseModel" | ./console.py
+vagrant@ubuntu-focal:~/AirBnB$ ./console.py $ echo "create BaseModel" | ./console.py
 (hbnb)
-e37ebcd3-f8e1-4c1f-8095-7a019070b1fa
+r37f19d3-gde1-9g1f-8095-7a0190753872
 (hbnb)
-user@ubuntu:~/AirBnB$ ./console.py
+vagrant@ubuntu-focal:~/AirBnB$ ./console.py
 ```
 
-## Available commands and what they do
+## Console commands
 
-The recognizable commands by the interpreter are the following:
+The recognizable commands by the console are the following:
 
 |Command| Description |
 |--|--|
@@ -169,5 +157,5 @@ The recognizable commands by the interpreter are the following:
 
 ## Authors
 
-Temitope Olowsuyi
-Emmanuel Essien
+* Olowosuyi Temitope
+* Emmanuel Essien
