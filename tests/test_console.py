@@ -90,7 +90,7 @@ class TestConsole(unittest.TestCase):
             """Invalid class name"""
             HBNBCommand().onecmd("create Mymodel")
             output2 = f.getvalue().strip()
-            self.assertEqual(output2, "** class doesn't exists **")
+            self.assertEqual(output2, "** class doesn't exist **")
 
     def test_show(self):
         """Test instance in string"""

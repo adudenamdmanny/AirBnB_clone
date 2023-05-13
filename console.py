@@ -63,7 +63,7 @@ class HBNBCommand(cmd.Cmd):
                 new_obj.save()
                 print(new_obj.id)
             else:
-                print("** class doesn't exists **")
+                print("** class doesn't exist **")
                 return
         else:
             print("** class name missing **")
