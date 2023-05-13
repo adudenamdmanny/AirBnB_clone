@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class Place(BaseModel):
     """This class contains all the optional Place details to be supplied
 
@@ -20,7 +21,8 @@ class Place(BaseModel):
             description:string - The desription of the place
             number_rooms:integer - The number of rooms in the place
             number_bathrooms:integer - The number of bathrooms in the place
-            max_guest:integer The maximum number of guest that the place can occupy
+            max_guest:integer The maximum number of guest that the place can
+                occupy
             price_by_night:integer - Price per night
             latitude:float - The latitude of the place
             longitude:float - The longitude of the place
@@ -36,5 +38,5 @@ class Place(BaseModel):
     max_guest = 0
     price_by_night = 0
     latitude = 0.0
-    logitude = 0.0
+    longitude = 0.0
     amenity_ids = []

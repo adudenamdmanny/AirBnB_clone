@@ -8,9 +8,7 @@ It then convert the dictionary back to an instance, map
 <Class.id> to the <instance> and save all in storage object (dict or {}).
 This happens each time module model is imported, just to ensure we have
 updated instances to work with.
-
 """
-
 from models.engine.file_storage import FileStorage
 
 storage = FileStorage()

@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class Amenity(BaseModel):
     """This class contains all the optional Amenity details to be supplied
 

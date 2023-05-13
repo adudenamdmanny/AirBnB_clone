@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class State(BaseModel):
     """This class contains all the optional State details to be supplied
 

@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class Review(BaseModel):
     """This class contains all the optional Review details to be supplied
 

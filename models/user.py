@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class User(BaseModel):
     """This class contains all the optional user details to be supplied
 

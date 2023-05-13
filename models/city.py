@@ -9,6 +9,7 @@ inherit all its parent (all BaseModel) methods.
 
 from models.base_model import BaseModel
 
+
 class City(BaseModel):
     """This class contains all the optional City details to be supplied
 

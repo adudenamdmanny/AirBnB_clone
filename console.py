@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 
 """
-This module contains the entry point of the command interpreter. The command interpreter
-helps to manipulate data without visual interface, like in a shell. It is perfect for
+This module contains the entry point of the command interpreter
+i.e the console. The command interpreter helps to manipulate data
+without visual interface, like in a shell. It is perfect for
 development and debugging.
 
 """
@@ -20,26 +21,23 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """Contains the entry point of the command interpreter
-
+    """This class contains the entry point of the command interpreter
     Attributes:
-
         Fields:
             prompt: Customize the command interpreter prompt
-
         Methods:
-            do_quit(self, line): Quit the command interpreter using "quit" command
-            do_EOF(self, line): Quit the command interpreter using "CTRL-D" keyboard
+            do_quit(self, line): Quit the cosole using "quit" command
+            do_EOF(self, line): Quit the console using "CTRL-D" keyboard
             emptyline(self): Disable repitition of last/previous command
-            do_create(self, line): Create new instance based on the specified class
-            do_show(self, line): Display the new instance using it's class and ID
+            do_create(self, line): Create new instance of specified class
+            do_show(self, line): Display instances using class and ID
             do_destroy(self, line): Destroy an instance using it's class and ID
-            do_all(self, line): List all the instance based or non-based on its class being specified
-            do_update(self, line): Update an instance by adding more attributes through
-                dictionary or by specifying the attribute name value pair
+            do_all(self, line): List all instances based on specified class/not
+            do_update(self, line): Update an instance by adding more attributes
+            through dictionary or by specifying the attribute name value pair
     """
-    valid_classes = ["BaseModel", "User", "State", "City",
-            "Amenity", "Place", "Review"]
+    valid_classes = [
+            "BaseModel", "User", "State", "City", "Amenity", "Place", "Review"]
 
     prompt = '(hbnb) '
 
@@ -59,41 +57,51 @@ class HBNBCommand(cmd.Cmd):
     def do_create(self, line):
         """Creates new instance based on specified class"""
         if line:
-            if line in self.valid_classes:
-                new_obj = eval(line)()
+            commands = line.split()
+            if commands[0] in self.valid_classes:
+                new_obj = eval(commands[0])()
                 new_obj.save()
                 print(new_obj.id)
             else:
                 print("** class doesn't exists **")
+                return
         else:
             print("** class name missing **")
+            return
 
     def do_show(self, line):
         """Print string representation of an instance based on specified
         class and id"""
-        
+
         if not line:
             print("** class name missing **")
+            return
         commands = line.split()
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
+            return
         else:
             try:
                 if "{}.{}".format(commands[0], commands[1]) in storage.all():
-                    print(storage.all()["{}.{}".format(commands[0], commands[1])])
+                    print(storage.all()[
+                        "{}.{}".format(commands[0], commands[1])])
                 else:
                     print("** no instance found **")
+                    return
             except IndexError:
                 print("** instance id missing **")
+                return
 
     def do_destroy(self, line):
         """Delete an instance from storage based on the class specified
         and id"""
         if not line:
             print("** class name missing **")
+            return
         commands = line.split()
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
+            return
         else:
             try:
                 if "{}.{}".format(commands[0], commands[1]) in storage.all():
@@ -102,8 +110,10 @@ class HBNBCommand(cmd.Cmd):
                     storage.reload()
                 else:
                     print("** no instance found **")
+                    return
             except IndexError:
                 print("** instance id missing **")
+                return
 
     def do_all(self, line):
         """Prints all string representation of all instances based
@@ -115,18 +125,22 @@ class HBNBCommand(cmd.Cmd):
         else:
             if line not in self.valid_classes:
                 print(response)
+                return
             else:
-                [all_obj.append(str(i)) for i in storage.all().values()
-                        if i.__class__.__name__ == line] 
+                [
+                        all_obj.append(str(i)) for i in storage.all().values()
+                        if i.__class__.__name__ == line]
         print(all_obj)
 
     def do_count(self, line):
         """count number of instances present in a specied class"""
         if line not in self.valid_classes:
             print("** class doesn't exist **")
+            return
         else:
-            num = sum(1 for i in storage.all().values()
-                    if i.__class__.__name__ == line) 
+            num = sum(
+                    1 for i in storage.all().values()
+                    if i.__class__.__name__ == line)
             print(num)
 
     def do_update(self, line):
@@ -134,19 +148,21 @@ class HBNBCommand(cmd.Cmd):
         updating attribute and saving in a file"""
         if not line:
             print("** class name missing **")
-    
-        #Capture text in curly braces {} or "" and put in a list
+            return
+        """Capture text in curly braces {} or "" and put in a list"""
         pattern = r'({.*?})|(\".*?\")'
         txt_in_braces = re.findall(pattern, line)
 
-        #Replace spaces in the list above with ### and join them with the line
+        """Replace spaces in the list above with ### and
+        join them with the line"""
         for space in txt_in_braces:
             space_str = "".join(space)
             line = line.replace(space_str, space_str.replace(' ', '###'))
 
-        #Split the line using space and replace ### in {} and "" back with spaces
+        """Split the line using space and replace ### in
+        {} and "" back with spaces"""
         commands = [c.replace('###', ' ') for c in line.split()]
-         
+
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
         elif len(commands) == 1:
@@ -164,8 +180,10 @@ class HBNBCommand(cmd.Cmd):
                     update_obj.save()
                 else:
                     print("** invalid synthax **")
+                    return
             else:
                 print("** value missing **")
+                return
         elif len(commands) == 4:
             val = commands[3]
             if type(eval(val)) not in (float, int, dict):
@@ -180,17 +198,19 @@ class HBNBCommand(cmd.Cmd):
                 update_obj.save()
             else:
                 print("** no instance found **")
+                return
         else:
             print("** invalid synthax **")
+            return
 
     def default(self, line):
         """Retrieve all instances of a class using classname.command.
         The command can be all(), count() e.t.c."""
-
         cmd_arr = line.split(".")
         cls = cmd_arr[0]
         if len(cmd_arr) == 1:
             print("** class doesn't exist **")
+            return
         methd = cmd_arr[1]
         try:
             commands = methd.split("(")
@@ -202,26 +222,28 @@ class HBNBCommand(cmd.Cmd):
                 obj_id = commands[1][1:-2]
                 new_line = "{} {}".format(cls, obj_id)
                 self.do_show(new_line)
-            elif commands[0] == "destroy":
+            elif commands[0] == "destroy" and commands[1].endswith(")"):
                 obj_id = commands[1][1:-2]
                 new_line = "{} {}".format(cls, obj_id)
                 self.do_destroy(new_line)
             elif commands[0] == "update":
                 pattern = r'({.*?})'
-                dic = re.findall(pattern, commands[1])
+                dic = re.findall(pattern, line)
                 obj_id = commands[1].split(',')[0][1:-1]
                 if not dic:
                     attr_name = commands[1].split(',')[1]
                     attr_val = commands[1].split(',')[2][:-1]
-                    new_line = "{} {} {} {}".format(cls, obj_id, attr_name, attr_val)
+                    new_line = "{} {} {} {}".format(
+                            cls, obj_id, attr_name, attr_val)
                 else:
                     new_line = "{} {} {}".format(cls, obj_id, dic[0])
                 self.do_update(new_line)
             else:
                 print("** invalid syntax **")
-
+                return
         except Exception:
             print("** invalid syntax **")
+            return
 
 
 if __name__ == '__main__':
