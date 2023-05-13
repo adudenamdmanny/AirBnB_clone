@@ -29,7 +29,7 @@ class Place(BaseModel):
             amenity_ids:list of string - List of Amenity.id
 
     """
-    city = ""
+    city_id = ""
     user_id = ""
     name = ""
     description = ""
