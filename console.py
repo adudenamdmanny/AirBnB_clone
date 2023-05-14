@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 """
 This module contains the entry point of the command interpreter
@@ -164,7 +164,7 @@ class HBNBCommand(cmd.Cmd):
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
         elif len(commands) == 1:
-            print("** instance id is missing **")
+            print("** instance id missing **")
         elif len(commands) == 2:
             print("** attribute name missing **")
         elif len(commands) == 3:

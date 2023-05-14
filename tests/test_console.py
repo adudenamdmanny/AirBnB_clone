@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/python3
 
 """
 This module contains several unittest test cases of the console of class
@@ -36,9 +36,11 @@ class TestConsole(unittest.TestCase):
         self.assertEqual(num_err, 0, "Wrong pep8 format, adjust your code !")
 
     def setUp(self):
+        """Perform this before each test"""
         pass
 
     def tearDown(self):
+        """Perform this after each test"""
         try:
             os.remove("file.json")
         except FileNotFoundError:
@@ -214,6 +216,31 @@ class TestConsole(unittest.TestCase):
         """Test updated instances"""
 
         with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** instance id missing **")
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update MyModel")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** class doesn't exist **")
+
+        with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("update")
             output = f.getvalue().strip()
             self.assertEqual(output, "** class name missing **")
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User 16151451")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** attribute name missing **")
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User 1615451 name")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** value missing **")
+
+        with patch('sys.stdout', new=StringIO()) as f:
+            HBNBCommand().onecmd("update User 161516156 name 'olowosuyi'")
+            output = f.getvalue().strip()
+            self.assertEqual(output, "** no instance found **")
