@@ -56,18 +56,17 @@ class HBNBCommand(cmd.Cmd):
 
     def do_create(self, line):
         """Creates new instance based on specified class"""
-        if line:
-            commands = line.split()
-            if commands[0] in self.valid_classes:
-                new_obj = eval(commands[0])()
-                new_obj.save()
-                print(new_obj.id)
-            else:
-                print("** class doesn't exist **")
-                return
-        else:
+        if not line:
             print("** class name missing **")
             return
+        commands = line.split()
+        if commands[0] not in self.valid_classes:
+            print("** class doesn't exist **")
+            return
+        else:
+            new_obj = eval(commands[0])()
+            new_obj.save()
+            print(new_obj.id)
 
     def do_show(self, line):
         """Print string representation of an instance based on specified
@@ -80,16 +79,15 @@ class HBNBCommand(cmd.Cmd):
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
             return
+        if len(commands) == 1:
+            print("** instance id missing **")
+            return
         else:
             try:
-                if "{}.{}".format(commands[0], commands[1]) in storage.all():
-                    print(storage.all()[
-                        "{}.{}".format(commands[0], commands[1])])
-                else:
-                    print("** no instance found **")
-                    return
-            except IndexError:
-                print("** instance id missing **")
+                key = "{}.{}".format(commands[0], commands[1])
+                print(storage.all()[key])
+            except Exception:
+                print("** no instance found **")
                 return
 
     def do_destroy(self, line):
@@ -102,17 +100,17 @@ class HBNBCommand(cmd.Cmd):
         if commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
             return
+        elif len(commands) == 1:
+            print("** instance id missing **")
+            return
         else:
             try:
-                if "{}.{}".format(commands[0], commands[1]) in storage.all():
-                    del storage.all()["{}.{}".format(commands[0], commands[1])]
-                    storage.save()
-                    storage.reload()
-                else:
-                    print("** no instance found **")
-                    return
-            except IndexError:
-                print("** instance id missing **")
+                key = "{}.{}".format(commands[0], commands[1])
+                del storage.all()[key]
+                storage.save()
+                storage.reload()
+            except Exception:
+                print("** no instance found **")
                 return
 
     def do_all(self, line):
